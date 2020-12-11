@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 .jumbotron {
-  /*height: 350px !important;*/
   padding-top: 70px;
   height: 100%;
   background: linear-gradient(#141e30, #243b55);
@@ -8,15 +7,11 @@
 
 .form-control,
 .input-group-text {
-  border: 1px solid #0080ff;
+  border: 1px solid #444;
 }
 
-table.table-hober tbody tr:hover {
+table.table-hover tbody tr:hover {
   cursor: pointer;
-}
-
-.resto {
-  padding: 50 !important;
 }
 
 html,
