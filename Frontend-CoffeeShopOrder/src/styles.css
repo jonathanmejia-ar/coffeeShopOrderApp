@@ -3,7 +3,7 @@
   /*height: 350px !important;*/
   padding-top: 70px;
   height: 100%;
-  background: #252b43;
+  background: linear-gradient(#141e30, #243b55);
 }
 
 .form-control,

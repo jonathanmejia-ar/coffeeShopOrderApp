@@ -1,12 +1,18 @@
+.form-container {
+  background: #f4f7f8;
+  padding: 30px;
+  border-radius: 10px;
+}
+/*
 label {
   color: white;
 }
-.tab {
-  color: white;
-  background-color: dimgrey;
+*/
+
+table th:first-child {
+  border-radius: 10px 0 0 10px;
 }
 
-.buttons-color:hover {
-  background-color: #008060;
-  color: white;
+table th:last-child {
+  border-radius: 0 10px 10px 0;
 }
