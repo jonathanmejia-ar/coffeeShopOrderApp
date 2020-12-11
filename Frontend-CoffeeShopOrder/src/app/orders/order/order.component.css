@@ -1,0 +1,12 @@
+label {
+  color: white;
+}
+.tab {
+  color: white;
+  background-color: dimgrey;
+}
+
+.buttons-color:hover {
+  background-color: #008060;
+  color: white;
+}

@@ -1,0 +1,24 @@
+###
+POST http://localhost:3000/api/item/newItem
+Content-Type: application/json
+
+{
+    "name": "Ice Cream",
+    "price": 2.50,
+    "itemID": 1
+}
+
+###
+GET http://localhost:3000/api/item/items
+
+###
+GET http://localhost:3000/api/customer/customerList
+
+###
+GET http://localhost:3000/api/order/orderList
+
+###
+GET http://localhost:3000/api/order/getOrder/5fd12718ae25e52710cf2899
+
+###
+DELETE http://localhost:3000/api/order/deleteOrder/5fd1333ca567c72b70fb7931

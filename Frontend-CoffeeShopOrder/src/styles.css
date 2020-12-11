@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+.jumbotron {
+  /*height: 350px !important;*/
+  padding-top: 70px;
+  height: 100%;
+  background: #252b43;
+}
+
+.form-control,
+.input-group-text {
+  border: 1px solid #0080ff;
+}
+
+table.table-hober tbody tr:hover {
+  cursor: pointer;
+}
+
+.resto {
+  padding: 50 !important;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #1d2029;
+}
