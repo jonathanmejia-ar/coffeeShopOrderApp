@@ -1,7 +1,12 @@
-// const app = require('./index')
-// const port = process.env.PORT || 3000;
+const app = require('./app')
+const config = require('./config/default');
+const MongoDB = require('./services/database');
 
+const port = config.server.port;
 
-// app.listen(port, () => {
-//     console.log(`Listening at http://localhost:${port} !`)
-// });
+//local
+app.listen(port, () => {
+    console.log(`Listening at http://localhost:${port} !`)
+});
+//db
+MongoDB.mongoConnect();
