@@ -1,6 +1,6 @@
 export class Order {
     orderID: string;
-    orderNo: number;
+    orderNumber: number;
     customerID: number;
     customerName: string;
     paymentMethod: string;

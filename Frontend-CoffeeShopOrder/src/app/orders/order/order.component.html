@@ -9,7 +9,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">#</div>
                         </div>
-                        <input name="orderNo" #orderNo="ngModel" [(ngModel)]="service.formData.orderNo"
+                        <input name="orderNumber" #orderNumber="ngModel" [(ngModel)]="service.formData.orderNumber"
                             class="form-control" readonly />
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                 <th>Total</th>
                 <th>
                     <a class="btn btn-sm btn-success text-white"
-                        (click)="AddOrEditOrderItem(null, service.formData.orderID)"><i class="fa fa-plus"></i> Add
+                        (click)="addOrEditOrderItem(null, service.formData.orderID)"><i class="fa fa-plus"></i> Add
                         Item</a>
                 </th>
             </thead>
@@ -72,7 +72,7 @@
                     <td>$ {{ item.total }}</td>
                     <td>
                         <a class="btn btn-sm btn-info text-white"
-                            (click)="AddOrEditOrderItem(i, service.formData.orderID)"><i class="fas fa-edit"></i></a>
+                            (click)="addOrEditOrderItem(i, service.formData.orderID)"><i class="fas fa-edit"></i></a>
                         <a class="btn btn-sm btn-danger text-white ml-1"
                             (click)="onDeleteOrderItem(item.orderItemID, i)"><i class="fa fa-trash"></i></a>
                     </td>

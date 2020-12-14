@@ -8,13 +8,13 @@ const OrderItem = require('../orderItems/orderItem.model');
 orderController.home = (req, res) => res.status(200).send('Orders API');
 
 orderController.createOrder = async (req, res) => {
-    if (!req.body.orderNo || !req.body.customerID || !req.body.customerName || !req.body.paymentMethod || !req.body.totalAmount) {
+    if (!req.body.orderNumber || !req.body.customerID || !req.body.customerName || !req.body.paymentMethod || !req.body.totalAmount) {
         throw new createError.BadRequest('Client Bad Request');
     }
-    const { orderNo, customerID, customerName, paymentMethod, totalAmount } = req.body;
+    const { orderNumber, customerID, customerName, paymentMethod, totalAmount } = req.body;
     let orderItemArray = req.body.OrderItem;
     if (!orderItemArray) throw new createError(400, 'Order Items not found');
-    const newOrder = new Order({ orderNo, customerID, customerName, paymentMethod, totalAmount });
+    const newOrder = new Order({ orderNumber, customerID, customerName, paymentMethod, totalAmount });
     await newOrder.save((err) => {
         if (err) throw new createError(500, 'Order not saved');
     });
@@ -49,7 +49,7 @@ orderController.updateOrder = async (req, res) => {
     try {
         await Order.findById(req.params.id)
         let edit = {
-            orderNo: req.body.orderNo,
+            orderNumber: req.body.orderNumber,
             customerID: req.body.customerID,
             customerName: req.body.customerName,
             paymentMethod: req.body.paymentMethod,
