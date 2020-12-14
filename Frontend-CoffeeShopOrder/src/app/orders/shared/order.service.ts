@@ -21,7 +21,7 @@ export class OrderService {
       OrderItem: this.orderItems
     };
     console.log(this.formData);
-    return this.http.post(environment.apiURL + '/order/newOrder', body);
+    return this.http.post(environment.apiURL + '/orders/createOrder', body);
   }
 
   updateOrder(id: string) {
@@ -30,18 +30,18 @@ export class OrderService {
       OrderItem: this.orderItems
     };
     console.log(this.formData);
-    return this.http.put(environment.apiURL + '/order/updateOrder/' + id, body)
+    return this.http.put(environment.apiURL + '/orders/updateOrder/' + id, body)
   }
 
   getOrderList() {
-    return this.http.get(environment.apiURL + '/order/orderList').toPromise();
+    return this.http.get(environment.apiURL + '/orders/getOrders').toPromise();
   }
 
   getOrderById(id: string): any {
-    return this.http.get(environment.apiURL + '/order/getOrder/' + id).toPromise();
+    return this.http.get(environment.apiURL + '/orders/getOrder/' + id).toPromise();
   }
 
   deleteOrder(id: string) {
-    return this.http.delete(environment.apiURL + '/order/deleteOrder/' + id).toPromise();
+    return this.http.delete(environment.apiURL + '/orders/deleteOrder/' + id).toPromise();
   }
 }

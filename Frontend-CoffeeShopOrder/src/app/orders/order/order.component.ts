@@ -41,7 +41,7 @@ export class OrderComponent implements OnInit {
         this.service.formData.orderID = orderID;
       });
     }
-    this.customerService.getCustomerList().then(res => this.customerList = res as Customer[]);
+    this.customerService.getCustomerList().then(res => { this.customerList = res as Customer[] });
 
   }
 

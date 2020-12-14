@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const customerSchema = new Schema({
     name: String
-
 }, {
     timestamps: true,
     versionKey: false

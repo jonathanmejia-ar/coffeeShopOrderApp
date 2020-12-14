@@ -1,5 +1,5 @@
 ###
-POST http://localhost:3000/api/item/newItem
+POST http://localhost:3000/api/items/createItem
 Content-Type: application/json
 
 {
@@ -9,16 +9,29 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/api/item/items
+GET http://localhost:3000/api/items/getItems
 
 ###
-GET http://localhost:3000/api/customer/customerList
+GET http://localhost:3000/api/customers/getCustomers
 
 ###
-GET http://localhost:3000/api/order/orderList
+POST http://localhost:3000/api/orders/createOrder
+Content-Type: application/json
+
+{
+    "orderNo": 12345,
+    "customerID": "12345",
+    "customerName" : "test api rest",
+    "paymentMethod" : "CASH",
+    "totalAmount" : 499 
+
+}
 
 ###
-GET http://localhost:3000/api/order/getOrder/5fd12718ae25e52710cf2899
+GET http://localhost:3000/api/orders/getOrders
 
 ###
-DELETE http://localhost:3000/api/order/deleteOrder/5fd1333ca567c72b70fb7931
+GET http://localhost:3000/api/orders/getOrder/5fd12718ae25e52710cf2899
+
+###
+DELETE http://localhost:3000/api/orders/deleteOrder/5fd1333ca567c72b70fb7931
