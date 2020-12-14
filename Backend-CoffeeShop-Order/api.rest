@@ -35,3 +35,6 @@ GET http://localhost:3000/api/orders/getOrder/5fd12718ae25e52710cf2899
 
 ###
 DELETE http://localhost:3000/api/orders/deleteOrder/5fd1333ca567c72b70fb7931
+
+###
+GET http://localhost:3000/api/asdasdasds

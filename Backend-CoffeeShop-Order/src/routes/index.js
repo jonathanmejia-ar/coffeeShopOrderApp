@@ -8,8 +8,6 @@ const router = express.Router();
 // /* Home page*/
 
 router.get('/', (req, res) => res.send('Welcome to Coffee Shop Order API'));
-
-
 router.use('/customers', customers);
 router.use('/items', items);
 router.use('/orderItems', orderItems);
