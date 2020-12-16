@@ -18,7 +18,7 @@ import { OrderComponent } from './orders/order/order.component';
 import { OrderItemsComponent } from './orders/order-items/order-items.component';
 
 //Services
-import { OrderService } from './orders/shared/order.service';
+import { OrderService } from './orders/services/order.service';
 
 @NgModule({
   declarations: [

@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ItemService } from '../shared/item.service';
-import { OrderItem } from '../shared/order-item.model';
-import { Item } from "../shared/item.model";
+import { ItemService } from '../services/item.service';
+import { OrderItem } from '../models/order-item.model';
+import { Item } from "../models/item.model";
 import { NgForm } from '@angular/forms';
-import { OrderService } from '../shared/order.service';
+import { OrderService } from '../services/order.service';
 
 @Component({
   selector: 'app-order-items',

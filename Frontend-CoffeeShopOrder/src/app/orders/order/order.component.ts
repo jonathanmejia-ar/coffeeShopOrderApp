@@ -5,9 +5,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { OrderItemsComponent } from '../order-items/order-items.component';
-import { Customer } from '../shared/customer.model';
-import { CustomerService } from '../shared/customer.service';
-import { OrderService } from '../shared/order.service';
+import { Customer } from '../models/customer.model';
+import { CustomerService } from '../services/customer.service';
+import { OrderService } from '../services/order.service';
 
 @Component({
   selector: 'app-order',
