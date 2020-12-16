@@ -4,7 +4,7 @@ const createError = require('http-errors')
 
 itemsController.home = (req, res) => res.status(200).send('Items API');
 
-itemsController.createItem = async (req, res) => {
+itemsController.createItem = async (req, res, next) => {
     try {
         const { name, price, itemID } = req.body;
         const newItem = new Item({ name, price, itemID });
@@ -21,7 +21,7 @@ itemsController.createItem = async (req, res) => {
 itemsController.getItems = async (req, res) => {
     await Item.find()
         .then(data => res.status(200).send(data))
-        .catch(err => res.status(404).send(`Item not found, error: ${err}`));
+        .catch(err => createError(404, 'Items not found'));
 }
 
 module.exports = itemsController;

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const customerSchema = new Schema({
-    name: String
+    name: { type: String, required: true }
 }, {
     timestamps: true,
     versionKey: false

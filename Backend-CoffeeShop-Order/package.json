@@ -13,6 +13,7 @@
     "config": "^3.3.3",
     "dotenv": "^8.2.0",
     "http-errors": "^1.8.0",
+    "mongoose-error-handler": "^1.1.0",
     "nodemon": "^2.0.6"
   }
 }

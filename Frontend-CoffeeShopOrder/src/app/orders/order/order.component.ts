@@ -34,7 +34,6 @@ export class OrderComponent implements OnInit {
       this.service.getOrderById(orderID).then(res => {
         this.service.formData = res.order;
         this.service.orderItems = res.orderItems;
-        console.log(this.service.formData);
         this.service.formData.orderID = orderID;
       });
     }

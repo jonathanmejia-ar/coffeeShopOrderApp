@@ -20,7 +20,6 @@ export class OrderService {
       ...this.formData,
       OrderItem: this.orderItems
     };
-    console.log(this.formData);
     return this.http.post(environment.apiURL + '/orders/createOrder', body);
   }
 
@@ -29,7 +28,6 @@ export class OrderService {
       ...this.formData,
       OrderItem: this.orderItems
     };
-    console.log(this.formData);
     return this.http.put(environment.apiURL + '/orders/updateOrder/' + id, body)
   }
 

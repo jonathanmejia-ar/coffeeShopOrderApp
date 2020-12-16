@@ -7,9 +7,9 @@ const OrderItem = require('../orderItems/orderItem.model');
 
 orderController.home = (req, res) => res.status(200).send('Orders API');
 
-orderController.createOrder = async (req, res) => {
+orderController.createOrder = async (req, res, next) => {
     try {
-        if (!req.body.orderNumber || !req.body.customerID || !req.body.customerName || !req.body.paymentMethod || !req.body.totalAmount) {
+        if (!req.body.orderNumber || !req.body.customerID || !req.body.customerName || !req.body.paymentMethod || !req.body.totalAmount || !req.body.OrderItem) {
             throw new createError.BadRequest('Client Bad Request');
         }
         const { orderNumber, customerID, customerName, paymentMethod, totalAmount } = req.body;
@@ -26,7 +26,7 @@ orderController.createOrder = async (req, res) => {
                 if (err) throw new createError(500, 'Order Item not saved');
             });
         }
-        res.status(201).send({ msg: 'Order Created' })
+        res.status(201).send({ msg: 'Order Created' });
     }
     catch (err) {
         next(err);
@@ -34,30 +34,22 @@ orderController.createOrder = async (req, res) => {
 };
 
 orderController.getOrder = async (req, res) => {
-    try {
-        const orderID = req.params.id;
-        let order = await Order.findById(orderID, { createdAt: false, updatedAt: false });
-        if (!order) throw new createError(400, 'Order not found');
-        let items = await OrderItem.find({ orderID: orderID }, { _id: true, itemID: true, itemName: true, quantity: true, orderID: true, price: true, total: true });
-        if (!items) throw new createError(400, 'Items not found');
-        res.status(200).send({ order: order, orderItems: items });
-    }
-    catch (err) {
-        next(err);
-    }
+    const orderID = req.params.id;
+    if (!orderID) throw new createError.BadRequest('Client Bad Request');
+    let order = await Order.findById(orderID, { createdAt: false, updatedAt: false });
+    if (!order) throw new createError(400, 'Order not found');
+    let items = await OrderItem.find({ orderID: orderID }, { _id: true, itemID: true, itemName: true, quantity: true, orderID: true, price: true, total: true });
+    if (!items) throw new createError(400, 'Items not found');
+    res.status(200).send({ order: order, orderItems: items });
 };
 
 orderController.getOrders = async (req, res) => {
-    try {
-        await Order.find()
-            .then(data => res.status(200).send(data))
-            .catch(err => res.status(404).send({ error: err }));
-    } catch (err) {
-        next();
-    }
+    await Order.find()
+        .then(data => res.status(200).send(data))
+        .catch(err => createError(404, 'Orders not found'));
 };
 
-orderController.updateOrder = async (req, res) => {
+orderController.updateOrder = async (req, res, next) => {
     try {
         let orderItemArray = req.body.OrderItem;
         let updateID = req.params.id;
@@ -86,17 +78,13 @@ orderController.updateOrder = async (req, res) => {
 };
 
 orderController.deleteOrder = async (req, res) => {
-    try {
-        const orderID = req.params.id;
-        if (!orderID) throw new createError.BadRequest('Client Bad Request');
-        let order = await Order.findByIdAndDelete(orderID);
-        if (!order) throw new createError(400, 'Order not found');
-        let orderItem = await OrderItem.deleteMany({ orderID: orderID });
-        if (!orderItem) throw new createError(400, 'Order Item not found');
-        res.status(200).send({ msg: 'Order Deleted' });
-    } catch (err) {
-        next(err);
-    }
+    const orderID = req.params.id;
+    if (!orderID) throw new createError.BadRequest('Client Bad Request');
+    let order = await Order.findByIdAndDelete(orderID);
+    if (!order) throw new createError(400, 'Order not found');
+    let orderItem = await OrderItem.deleteMany({ orderID: orderID });
+    if (!orderItem) throw new createError(400, 'Order Item not found');
+    res.status(200).send({ msg: 'Order Deleted' });
 };
 
 module.exports = orderController;
