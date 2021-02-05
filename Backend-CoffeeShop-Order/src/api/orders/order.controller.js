@@ -16,15 +16,13 @@ orderController.createOrder = async (req, res, next) => {
         let orderItemArray = req.body.OrderItem;
         if (!orderItemArray) throw new createError(400, 'Order Items not found');
         const newOrder = new Order({ orderNumber, customerID, customerName, paymentMethod, totalAmount });
-        await newOrder.save((err) => {
-            if (err) throw new createError(500, 'Order not saved');
-        });
+        const orderErr = await newOrder.save().catch(err => err);
+        if (orderErr) { throw new createError(500, 'Order not saved') };
         for (let item of orderItemArray) {
             const { itemID, quantity, itemName, price, total } = item;
             const newOrderItem = new OrderItem({ itemID, itemName, quantity, orderID: newOrder._id, price, total });
-            await newOrderItem.save((err) => {
-                if (err) throw new createError(500, 'Order Item not saved');
-            });
+            const orderItemErr = await newOrderItem.save().catch(err => err)
+            if (orderItemErr) { throw new createError(500, 'Order Item not saved') };
         }
         res.status(201).send({ msg: 'Order Created' });
     }
@@ -44,17 +42,20 @@ orderController.getOrder = async (req, res) => {
 };
 
 orderController.getOrders = async (req, res) => {
-    await Order.find()
-        .then(data => res.status(200).send(data))
-        .catch(err => createError(404, 'Orders not found'));
+    try {
+        const orders = await Order.find();
+        res.status(200).send(orders);
+    }
+    catch (e) {
+        throw new createError(404, 'Orders not found')
+    }
 };
 
 orderController.updateOrder = async (req, res, next) => {
     try {
         let orderItemArray = req.body.OrderItem;
         let updateID = req.params.id;
-
-        await Order.findById(req.params.id)
+        await Order.findById(req.params.id);
         let edit = {
             orderNumber: req.body.orderNumber,
             customerID: req.body.customerID,
@@ -67,9 +68,8 @@ orderController.updateOrder = async (req, res, next) => {
         for (let item of orderItemArray) {
             const { itemID, quantity, itemName, price, total } = item;
             const newOrderItem = new OrderItem({ itemID, itemName, quantity, orderID: updateID, price, total });
-            await newOrderItem.save((err) => {
-                if (err) throw new createError(500, 'Order not saved')
-            });
+            const orderItemSavedErr = await newOrderItem.save().catch(err => err);
+            if (orderItemSavedErr) throw new createError(500, 'Order not saved');
         }
         res.status(200).send({ msg: 'Order Updated' });
     } catch (err) {
