@@ -1,4 +1,4 @@
-import { ThrowStmt } from '@angular/compiler';
+
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -8,6 +8,7 @@ import { OrderItemsComponent } from '../order-items/order-items.component';
 import { Customer } from '../models/customer.model';
 import { CustomerService } from '../services/customer.service';
 import { OrderService } from '../services/order.service';
+import { NbToastrService } from '@nebular/theme';
 
 @Component({
   selector: 'app-order',
@@ -22,9 +23,10 @@ export class OrderComponent implements OnInit {
   constructor(public service: OrderService,
     private dialog: MatDialog,
     private customerService: CustomerService,
-    private toastr: ToastrService,
     private router: Router,
-    private currentRoute: ActivatedRoute) { }
+    private currentRoute: ActivatedRoute,
+    private nebularToastr: NbToastrService
+  ) { }
 
   ngOnInit(): void {
     let orderID = this.currentRoute.snapshot.paramMap.get('id');
@@ -99,18 +101,24 @@ export class OrderComponent implements OnInit {
       if (orderID) {
         this.service.updateOrder(orderID).subscribe(res => {
           this.resetForm();
-          this.toastr.info('Updated Successfully', 'Coffee Shop App.');
+          this.showToast('top-right', 'success', 'Updated Successfully');
           this.router.navigate(['/orders'])
         })
       } else {
         this.service.formData.customerName = this.customerList[this.service.formData.customerID - 1].name;
         this.service.saveOrder().subscribe(res => {
           this.resetForm();
-          this.toastr.success('Submitted Successfully', 'Coffee Shop App.');
+          this.showToast('top-right', 'success', 'Submitted Successfully');
           this.router.navigate(['/orders']);
         });
       }
     }
+  }
+  showToast(position, status, title) {
+    this.nebularToastr.show(
+      'Coffee Shop App.',
+      `${title}`,
+      { position, status });
   }
 };
 

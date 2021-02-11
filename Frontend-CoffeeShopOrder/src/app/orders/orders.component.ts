@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { OrderComponent } from './order/order.component';
 import { OrderService } from './services/order.service';
 
@@ -11,19 +11,26 @@ import { OrderService } from './services/order.service';
 })
 export class OrdersComponent implements OnInit {
 
+  loading: boolean = true;
   orderList;
+  idRemove: any;
 
   constructor(private service: OrderService,
     private router: Router,
-    private toastr: ToastrService,
-    public _order: OrderComponent) { }
+    public _order: OrderComponent,
+    private nebularToastr: NbToastrService,
+    private dialogService: NbDialogService
+  ) { }
 
   ngOnInit(): void {
     this.refreshList();
   }
 
   refreshList() {
-    this.service.getOrderList().then(res => this.orderList = res)
+    this.service.getOrderList().then(res => {
+      this.loading = false;
+      this.orderList = res;
+    })
   }
 
   openForEdit(orderID: number) {
@@ -31,13 +38,27 @@ export class OrdersComponent implements OnInit {
   }
 
   onOrderDelete(id: string) {
+    this.service.deleteOrder(id).then(res => {
+      this.refreshList();
+      this.showToast('top-right', 'warning', 'Deleted Successfully');
+    });
 
-    if (confirm('Are you sure to delete this?')) {
-
-      this.service.deleteOrder(id).then(res => {
-        this.refreshList();
-        this.toastr.warning("Deleted Successfully", "Coffee Shop App.");
-      });
-    }
   }
+  showToast(position, status, title) {
+    this.nebularToastr.show(
+      'Coffee Shop App.',
+      `${title}`,
+      { position, status });
+  }
+
+  open(dialog: TemplateRef<any>, index) {
+    this.idRemove = index;
+    this.dialogService.open(dialog).onClose.subscribe((data) => {
+      if (data === 'remove') {
+        this.onOrderDelete(index);
+      }
+    });
+  }
+
+
 }

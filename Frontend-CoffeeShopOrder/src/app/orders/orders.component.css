@@ -3,3 +3,12 @@
   padding: 30px;
   border-radius: 10px;
 }
+
+.tab {
+  color: black;
+}
+
+.no-light {
+  box-shadow: none !important;
+  outline: none;
+}

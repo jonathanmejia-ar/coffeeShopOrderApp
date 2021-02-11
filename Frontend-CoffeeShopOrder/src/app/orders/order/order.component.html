@@ -1,94 +1,168 @@
-<div class="form-container">
-    <form #form="ngForm" autocomplete="off" *ngIf="service.formData" (submit)="onSubmit(form)">
-        <input type="hidden" name="orderID" #orderID="ngModel" [(ngModel)]="service.formData.orderID">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Order Number</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">#</div>
-                        </div>
-                        <input name="orderNumber" #orderNumber="ngModel" [(ngModel)]="service.formData.orderNumber"
-                            class="form-control" readonly />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Customer</label>
-                    <select name="customerID" #customerID="ngModel" [(ngModel)]="service.formData.customerID"
-                        class="form-control" [class.is-invalid]="!isValid && service.formData.customerID==0">
-                        <option value="0"> Select </option>
-                        <option *ngFor="let customer of this.customerList" value="{{customer.id}}">
-                            {{customer.name}}</option>
-                    </select>
-                </div>
+<div class="form-container animate__animated animate__fadeIn">
+  <form
+    #form="ngForm"
+    autocomplete="off"
+    *ngIf="service.formData"
+    (submit)="onSubmit(form)"
+  >
+    <input
+      type="hidden"
+      name="orderID"
+      #orderID="ngModel"
+      [(ngModel)]="service.formData.orderID"
+    />
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Order Number</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">#</div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Payment Method</label>
-                    <select name="paymentMethod" #paymentMethod="ngModel" [(ngModel)]="service.formData.paymentMethod"
-                        class="form-control" [class.is-invalid]=" !isValid && service.formData.paymentMethod == ''">
-                        <option value=""> Select </option>
-                        <option value="Cash">Cash</option>
-                        <option value="Card">Card</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Total Amount</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">$</div>
-                        </div>
-                        <input name="totalAmount" #totalAmount="ngModel" [(ngModel)]="service.formData.totalAmount"
-                            class="form-control" readonly />
-                    </div>
-                </div>
-            </div>
+            <input
+              name="orderNumber"
+              #orderNumber="ngModel"
+              [(ngModel)]="service.formData.orderNumber"
+              class="form-control"
+              readonly
+            />
+          </div>
         </div>
-        <!-- order items table-->
-        <table class="table table-borderless tableborder">
-            <thead class="thead-light">
-                <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>
-                    <a class="btn btn-sm btn-success text-white"
-                        (click)="addOrEditOrderItem(null, service.formData.orderID)"><i class="fa fa-plus"></i> Add
-                        Item</a>
-                </th>
-            </thead>
-            <tbody>
-                <tr *ngIf="service.orderItems.length == 0"
-                    [class.text-danger]="!isValid && service.orderItems.length==0">
-                    <td class="font-italic text-center" colspan="5">
-                        No product item selected for this order.
-                    </td>
-                </tr>
-                <tr *ngFor="let item of service.orderItems; let i = index" class="tab">
-                    <td>{{ item.itemName }}</td>
-                    <td>$ {{ item.price }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>$ {{ item.total }}</td>
-                    <td>
-                        <a class="btn btn-sm btn-info text-white"
-                            (click)="addOrEditOrderItem(i, service.formData.orderID)"><i class="fas fa-edit"></i></a>
-                        <a class="btn btn-sm btn-danger text-white ml-1"
-                            (click)="onDeleteOrderItem(item.orderItemID, i)"><i class="fa fa-trash"></i></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="form-group ">
-
-            <button type="submit" class="btn btn-dark">
-                <i class="fas fa-money-bill"></i> Submit
+        <div class="form-group">
+          <label>Customer</label>
+          <div class="input-group">
+            <select
+              type="text"
+              name="customerID"
+              #customerID="ngModel"
+              [(ngModel)]="service.formData.customerID"
+              class="form-control"
+              [class.is-invalid]="!isValid && service.formData.customerID == 0"
+            >
+              <option value="0">Select</option>
+              <option
+                *ngFor="let customer of this.customerList"
+                value="{{ customer.id }}"
+              >
+                {{ customer.name }}
+              </option>
+            </select>
+            <div class="input-group-append" *ngIf="!customerList">
+              <label class="input-group-text" for="inputGroupSelect02"
+                ><i class="fas fa-spinner fa-spin"></i
+              ></label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Payment Method</label>
+          <select
+            name="paymentMethod"
+            #paymentMethod="ngModel"
+            [(ngModel)]="service.formData.paymentMethod"
+            class="form-control"
+            [class.is-invalid]="
+              !isValid && service.formData.paymentMethod == ''
+            "
+          >
+            <option value="">Select</option>
+            <option value="Cash">Cash</option>
+            <option value="Card">Card</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Total Amount</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">$</div>
+            </div>
+            <input
+              name="totalAmount"
+              #totalAmount="ngModel"
+              [(ngModel)]="service.formData.totalAmount"
+              class="form-control"
+              readonly
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <table class="table table-borderless tableborder">
+      <thead class="thead-light">
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>
+          <button
+            type="button"
+            nbButton
+            size="tiny"
+            status="success"
+            class="no-light"
+            (click)="addOrEditOrderItem(null, service.formData.orderID)"
+          >
+            <nb-icon class="fas fa-plus"></nb-icon>
+            Add Item
+          </button>
+        </th>
+      </thead>
+      <tbody>
+        <tr
+          *ngIf="service.orderItems.length == 0"
+          [class.text-danger]="!isValid && service.orderItems.length == 0"
+        >
+          <td class="text-center text-danger" colspan="5">
+            No product item selected for this order.
+          </td>
+        </tr>
+        <tr *ngFor="let item of service.orderItems; let i = index" class="tab">
+          <td>{{ item.itemName }}</td>
+          <td>$ {{ item.price }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>$ {{ item.total }}</td>
+          <td>
+            <button
+              class="btn btn-sm btn-info text-white"
+              (click)="addOrEditOrderItem(i, service.formData.orderID)"
+            >
+              <i class="fas fa-edit"></i>
             </button>
-            <a class="text-right">
-                <a class="btn btn-outline-dark ml-1 float-right" routerLink="/orders"><i class="fas fa-receipt"></i>
-                    View
-                    Orders</a>
-            </a>
-        </div>
-    </form>
+            <a
+              class="btn btn-sm btn-danger text-white ml-1"
+              (click)="onDeleteOrderItem(item.orderItemID, i)"
+              ><i class="fa fa-trash"></i
+            ></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="form-group">
+      <button type="submit" nbButton outline status="success" size="small">
+        <nb-icon class="fas fa-money-bill"
+          ><span class="caption-2"></span
+        ></nb-icon>
+        Submit
+      </button>
+
+      <a class="text-right">
+        <button
+          class="ml-1 float-right"
+          type="submit"
+          nbButton
+          outline
+          status="primary"
+          size="small"
+          routerLink="/orders"
+        >
+          <nb-icon class="fas fa-receipt"
+            ><span class="caption-2"></span
+          ></nb-icon>
+          View Orders
+        </button>
+      </a>
+    </div>
+  </form>
 </div>

@@ -3,11 +3,11 @@
   padding: 30px;
   border-radius: 10px;
 }
-/*
+
 label {
-  color: white;
+  color: black;
+  font-weight: 500;
 }
-*/
 
 table th:first-child {
   border-radius: 10px 0 0 10px;
@@ -15,4 +15,13 @@ table th:first-child {
 
 table th:last-child {
   border-radius: 0 10px 10px 0;
+}
+
+.tab {
+  color: black;
+}
+
+.no-light {
+  box-shadow: none !important;
+  outline: none;
 }

@@ -5,6 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from "@angular/common/http";
 import { ToastrModule } from 'ngx-toastr'
+import { NbToastrModule, NbThemeModule, NbLayoutModule, NbButtonModule, NbSpinnerModule, NbCardModule, NbDialogModule, NbDialogRef } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { AppRoutingModule } from './app-routing.module';
 
 
 
@@ -19,13 +22,15 @@ import { OrderItemsComponent } from './orders/order-items/order-items.component'
 
 //Services
 import { OrderService } from './orders/services/order.service';
+import { LoadingComponent } from './shared/loading/loading.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OrdersComponent,
     OrderComponent,
-    OrderItemsComponent
+    OrderItemsComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,16 @@ import { OrderService } from './orders/services/order.service';
     BrowserAnimationsModule,
     MatDialogModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NbToastrModule.forRoot(),
+    NbThemeModule.forRoot({ name: 'cosmic' }),
+    NbLayoutModule,
+    NbEvaIconsModule,
+    AppRoutingModule,
+    NbButtonModule,
+    NbSpinnerModule,
+    NbCardModule,
+    NbDialogModule.forRoot()
   ],
   entryComponents: [OrderItemsComponent],
   providers: [OrderService, OrderComponent],
