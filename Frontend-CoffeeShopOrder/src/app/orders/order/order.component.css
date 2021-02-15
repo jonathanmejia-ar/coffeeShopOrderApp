@@ -25,3 +25,20 @@ table th:last-child {
   box-shadow: none !important;
   outline: none;
 }
+
+.thead-cosmic {
+  background-color: #6a6a94 !important;
+}
+
+.container {
+  color: black;
+}
+
+.items-border {
+  border-radius: 10px;
+  background: #6a6a94 !important;
+  cursor: default !important;
+  font-weight: 700;
+  color: whitesmoke;
+  height: 60px;
+}

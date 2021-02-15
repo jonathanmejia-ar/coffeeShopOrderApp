@@ -39,7 +39,11 @@ export class OrderComponent implements OnInit {
         this.service.formData.orderID = orderID;
       });
     }
-    this.customerService.getCustomerList().then(res => { this.customerList = res as Customer[] });
+    this.customerService.getCustomerList().then(res => {
+      this.customerList = res as Customer[];
+      console.log(this.customerList)
+    });
+
   };
 
   resetForm(form?: NgForm) {
@@ -95,6 +99,7 @@ export class OrderComponent implements OnInit {
   };
 
   onSubmit(form: NgForm) {
+    console.log(form.value);
     let orderID = this.currentRoute.snapshot.paramMap.get('id');
     if (this.validateForm()) {
       this.service.formData.customerName = this.customerList[this.service.formData.customerID - 1].name;

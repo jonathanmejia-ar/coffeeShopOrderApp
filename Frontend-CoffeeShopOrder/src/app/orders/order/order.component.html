@@ -89,8 +89,9 @@
         </div>
       </div>
     </div>
+    <!--
     <table class="table table-borderless tableborder">
-      <thead class="thead-light">
+      <thead class="thead-cosmic">
         <th>Product</th>
         <th>Price</th>
         <th>Quantity</th>
@@ -125,20 +126,94 @@
           <td>$ {{ item.total }}</td>
           <td>
             <button
-              class="btn btn-sm btn-info text-white"
+              type="button"
+              nbButton
+              shape="semi-round"
+              size="small"
+              status="info"
+              class="text-white"
               (click)="addOrEditOrderItem(i, service.formData.orderID)"
             >
               <i class="fas fa-edit"></i>
             </button>
-            <a
-              class="btn btn-sm btn-danger text-white ml-1"
+            <button
+              type="button"
+              nbButton
+              shape="semi-round"
+              size="small"
+              status="danger"
+              class="text-white ml-1"
               (click)="onDeleteOrderItem(item.orderItemID, i)"
-              ><i class="fa fa-trash"></i
-            ></a>
+            >
+              <i class="fa fa-trash"></i>
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
+    -->
+    <div class="container animate__animated animate__fadeIn">
+      <div class="row d-flex align-items-center text-center">
+        <div class="col-md-3 items-border">Product</div>
+        <div class="col-md-2 items-border">Price</div>
+        <div class="col-md-2 items-border">Quantity</div>
+        <div class="col-md-2 items-border">Total</div>
+        <div class="col-md-2">
+          <button
+            type="button"
+            nbButton
+            size="tiny"
+            status="success"
+            class="no-light"
+            (click)="addOrEditOrderItem(null, service.formData.orderID)"
+          >
+            <nb-icon class="fas fa-plus"></nb-icon>
+            Add Item
+          </button>
+        </div>
+      </div>
+      <div
+        class="row mt-4 d-flex align-items-center text-center"
+        *ngFor="let item of service.orderItems; let i = index"
+      >
+        <div class="col-md-3">
+          <b>
+            {{ item.itemName }}
+          </b>
+        </div>
+        <div class="col-md-2">
+          {{ item.quantity }}
+        </div>
+        <div class="col-md-2">$ {{ item.price }}</div>
+        <div class="col-md-2">$ {{ item.total }}</div>
+        <div class="col-md-2">
+          <button
+            type="button"
+            nbButton
+            shape="semi-round"
+            size="small"
+            status="info"
+            class="text-white"
+            (click)="addOrEditOrderItem(i, service.formData.orderID)"
+          >
+            <i class="fas fa-edit"></i>
+          </button>
+          <button
+            type="button"
+            nbButton
+            shape="semi-round"
+            size="small"
+            status="danger"
+            class="text-white ml-1"
+            (click)="onDeleteOrderItem(item.orderItemID, i)"
+          >
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!---->
+
     <div class="form-group">
       <button type="submit" nbButton outline status="success" size="small">
         <nb-icon class="fas fa-money-bill"
@@ -150,7 +225,7 @@
       <a class="text-right">
         <button
           class="ml-1 float-right"
-          type="submit"
+          type="button"
           nbButton
           outline
           status="primary"

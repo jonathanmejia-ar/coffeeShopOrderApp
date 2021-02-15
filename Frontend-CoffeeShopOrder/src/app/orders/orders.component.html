@@ -21,33 +21,38 @@
     </nb-card-body>
   </nb-card>
 </ng-template>
-
-<div class="table-container animate__animated animate__fadeIn" *ngIf="!loading">
-  <table class="table table-hover table-responsive-lg">
-    <thead class="thead-light">
-      <th>#Order Number</th>
-      <th>Customer</th>
-      <th>Payment Method</th>
-      <th>Total Amount</th>
-      <th>
-        <button nbButton status="success" size="small" routerLink="/order">
-          <i class="fas fa-plus-square"><span>&nbsp;&nbsp;</span></i> Create
-          Order
-        </button>
-      </th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of orderList" class="tab">
-        <th (click)="openForEdit(item._id)">{{ item.orderNumber }}</th>
-        <td (click)="openForEdit(item._id)">{{ item.customerName }}</td>
-        <td (click)="openForEdit(item._id)">{{ item.paymentMethod }}</td>
-        <td (click)="openForEdit(item._id)">{{ item.totalAmount }}</td>
-        <td>
-          <a class="btn text-danger" (click)="open(dialog, item._id)"
-            ><i class="fas fa-trash fa-lg"></i
-          ></a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container animate__animated animate__fadeIn" *ngIf="!loading">
+  <div class="row d-flex align-items-center text-center">
+    <div class="col-md-3">#Order Number</div>
+    <div class="col-md-2">Customer</div>
+    <div class="col-md-2">Payment Method</div>
+    <div class="col-md-2">Total Amount</div>
+    <div class="col-md-2">
+      <button nbButton status="success" size="small" routerLink="/order">
+        <i class="fas fa-plus-square"><span>&nbsp;&nbsp;</span></i> Create Order
+      </button>
+    </div>
+  </div>
+  <div
+    class="row mt-4 d-flex align-items-center text-center"
+    *ngFor="let item of orderList"
+  >
+    <div class="col-md-3" (click)="openForEdit(item._id)">
+      <b>{{ item.orderNumber }}</b>
+    </div>
+    <div class="col-md-2" (click)="openForEdit(item._id)">
+      {{ item.customerName }}
+    </div>
+    <div class="col-md-2" (click)="openForEdit(item._id)">
+      {{ item.paymentMethod }}
+    </div>
+    <div class="col-md-2" (click)="openForEdit(item._id)">
+      $ {{ item.totalAmount }}
+    </div>
+    <div class="col-md-2">
+      <a class="btn text-danger" (click)="open(dialog, item._id)"
+        ><i class="fas fa-trash fa-lg"></i
+      ></a>
+    </div>
+  </div>
 </div>
