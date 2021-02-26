@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/', (req, res) => res.send('Welcome to Coffee Shop Order API'));
 router.use('/customers', customers);
 router.use('/items', items);
-router.use('/orderItems', orderItems);
+router.use('/order-items', orderItems);
 router.use('/orders', orders);
 
 module.exports = router;

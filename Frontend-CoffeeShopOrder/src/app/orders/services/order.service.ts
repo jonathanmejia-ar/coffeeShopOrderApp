@@ -20,7 +20,7 @@ export class OrderService {
       ...this.formData,
       OrderItem: this.orderItems
     };
-    return this.http.post(environment.apiURL + '/orders/createOrder', body);
+    return this.http.post(environment.apiURL + '/orders', body);
   }
 
   updateOrder(id: string) {
@@ -28,18 +28,18 @@ export class OrderService {
       ...this.formData,
       OrderItem: this.orderItems
     };
-    return this.http.put(environment.apiURL + '/orders/updateOrder/' + id, body)
+    return this.http.put(environment.apiURL + '/orders/' + id, body)
   }
 
   getOrderList() {
-    return this.http.get(environment.apiURL + '/orders/getOrders').toPromise();
+    return this.http.get(environment.apiURL + '/orders').toPromise();
   }
 
   getOrderById(id: string): any {
-    return this.http.get(environment.apiURL + '/orders/getOrder/' + id).toPromise();
+    return this.http.get(environment.apiURL + '/orders/' + id).toPromise();
   }
 
   deleteOrder(id: string) {
-    return this.http.delete(environment.apiURL + '/orders/deleteOrder/' + id).toPromise();
+    return this.http.delete(environment.apiURL + '/orders/' + id).toPromise();
   }
 }

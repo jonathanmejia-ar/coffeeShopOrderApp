@@ -9,17 +9,20 @@ itemsController.createItem = async (req, res, next) => {
         const { name, price, itemID } = req.body;
         const newItem = new Item({ name, price, itemID });
         await newItem.save();
-        return res.status(201).send('Item Created');
+        return res.status(201).json({ message: 'Item Created' });
     }
     catch (err) {
         next(err);
     }
 }
 
-itemsController.getItems = async (req, res) => {
-    const items = await Item.find();
-    if (!items) createError(404, 'Items not found');
-    return res.status(200).send(items);
+itemsController.getItems = async (req, res, next) => {
+    try {
+        const items = await Item.find();
+        return res.status(200).send(items);
+    } catch (err) {
+        next(err);
+    }
 }
 
 module.exports = itemsController;

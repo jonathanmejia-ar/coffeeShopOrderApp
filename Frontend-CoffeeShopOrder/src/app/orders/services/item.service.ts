@@ -10,6 +10,6 @@ export class ItemService {
   constructor(private http: HttpClient) { }
 
   getItemList() {
-    return this.http.get(environment.apiURL + '/items/getItems').toPromise();
+    return this.http.get(environment.apiURL + '/items').toPromise();
   }
 }
